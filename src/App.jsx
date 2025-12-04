@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import Hero from './components/sections/Hero'
 import Work from './components/sections/Work'
@@ -6,7 +6,7 @@ import Services from './components/sections/Services'
 import VideoShowcase from './components/sections/VideoShowcase'
 import Footer from './components/sections/Footer'
 import AdminLayout from './components/admin/AdminLayout'
-
+import Login from './components/auth/Login'
 import { useEffect } from 'react'
 import { useContentStore } from './store/contentStore'
 
@@ -28,12 +28,28 @@ function MainSite() {
   )
 }
 
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem('adminToken')
+  if (!token) {
+    return <Navigate to="/login" replace />
+  }
+  return children
+}
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MainSite />} />
-        <Route path="/admin/*" element={<AdminLayout />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   )

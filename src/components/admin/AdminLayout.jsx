@@ -1,4 +1,4 @@
-import { Link, Routes, Route } from 'react-router-dom'
+import { Link, Routes, Route, useNavigate } from 'react-router-dom'
 import { useContentStore } from '../../store/contentStore'
 import HeroEditor from './HeroEditor'
 import WorkEditor from './WorkEditor'
@@ -10,10 +10,16 @@ import { useEffect } from 'react'
 
 export default function AdminLayout() {
     const store = useContentStore()
+    const navigate = useNavigate()
 
     useEffect(() => {
         store.fetchData()
     }, [])
+
+    const handleLogout = () => {
+        localStorage.removeItem('adminToken')
+        navigate('/login')
+    }
 
     const handleDownload = () => {
         const data = {
@@ -46,6 +52,12 @@ export default function AdminLayout() {
                 </nav>
 
                 <div className="space-y-4 pt-8 border-t border-gray-800">
+                    <button
+                        onClick={handleLogout}
+                        className="w-full text-left text-red-500 hover:text-red-400 transition-colors"
+                    >
+                        Logout
+                    </button>
                     <button
                         onClick={handleDownload}
                         className="w-full py-2 bg-gray-800 hover:bg-gray-700 rounded text-sm text-gray-300 transition-colors"

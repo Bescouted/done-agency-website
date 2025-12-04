@@ -89,6 +89,21 @@ app.post('/api/footer', (req, res) => handleSave('footer', req.body, res));
 app.get('/api/videos', (req, res) => handleGet('videos', res));
 app.post('/api/videos', (req, res) => handleSave('videos', req.body, res));
 
+app.get('/api/hero', (req, res) => handleGet('hero', res));
+app.post('/api/hero', (req, res) => handleSave('hero', req.body, res));
+
+// Auth Endpoint
+app.post('/api/login', (req, res) => {
+    const { password } = req.body;
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'; // Default fallback
+
+    if (password === ADMIN_PASSWORD) {
+        res.json({ success: true, token: 'fake-jwt-token-for-demo' });
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid password' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

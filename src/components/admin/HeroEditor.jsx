@@ -1,18 +1,41 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useContentStore } from '../../store/contentStore'
+import { API_URL } from '../../config'
 
 export default function HeroEditor() {
     const { hero, setHero } = useContentStore()
     const [localHero, setLocalHero] = useState(hero)
+
+    // Update local state when store changes (initial load)
+    useEffect(() => {
+        setLocalHero(hero)
+    }, [hero])
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setLocalHero(prev => ({ ...prev, [name]: value }))
     }
 
-    const handleSave = () => {
-        setHero(localHero)
-        alert('Hero section updated!')
+    const handleSave = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/hero`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(localHero)
+            })
+
+            if (response.ok) {
+                setHero(localHero)
+                alert('Hero section saved to code!')
+            } else {
+                alert('Failed to save hero section.')
+            }
+        } catch (error) {
+            console.error('Error saving hero:', error)
+            alert('Failed to save hero section.')
+        }
     }
 
     return (
@@ -46,7 +69,7 @@ export default function HeroEditor() {
                     onClick={handleSave}
                     className="bg-electric-blue text-black font-bold py-3 px-6 rounded hover:bg-white transition-colors"
                 >
-                    Save Changes
+                    SAVE CHANGES TO CODE
                 </button>
             </div>
         </div>

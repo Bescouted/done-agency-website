@@ -47,11 +47,12 @@ export const useContentStore = create((set) => ({
     fetchData: async () => {
         try {
             const { API_URL } = await import('../config');
-            const [projectsRes, servicesRes, footerRes, videosRes] = await Promise.all([
+            const [projectsRes, servicesRes, footerRes, videosRes, heroRes] = await Promise.all([
                 fetch(`${API_URL}/api/projects`),
                 fetch(`${API_URL}/api/services`),
                 fetch(`${API_URL}/api/footer`),
-                fetch(`${API_URL}/api/videos`)
+                fetch(`${API_URL}/api/videos`),
+                fetch(`${API_URL}/api/hero`)
             ]);
 
             if (projectsRes.ok) {
@@ -69,6 +70,10 @@ export const useContentStore = create((set) => ({
             if (videosRes.ok) {
                 const data = await videosRes.json();
                 if (data && data.length > 0) set({ videos: data });
+            }
+            if (heroRes.ok) {
+                const data = await heroRes.json();
+                if (data && Object.keys(data).length > 0) set({ hero: data });
             }
         } catch (error) {
             console.error('Failed to fetch initial data:', error);
