@@ -7,7 +7,16 @@ import VideoShowcase from './components/sections/VideoShowcase'
 import Footer from './components/sections/Footer'
 import AdminLayout from './components/admin/AdminLayout'
 
+import { useEffect } from 'react'
+import { useContentStore } from './store/contentStore'
+
 function MainSite() {
+  const { fetchData } = useContentStore()
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
   return (
     <Layout>
       <Hero />
