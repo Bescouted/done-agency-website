@@ -252,14 +252,14 @@ export default function Hero() {
                     <img
                         src="/Logo/hero-logo.png"
                         alt={hero.title}
-                        className="w-[60vw] md:w-[40vw] h-auto object-contain filter invert"
+                        className="w-[60vw] md:w-[40vw] max-h-[50vh] h-auto object-contain filter invert"
                     />
                 </motion.div>
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
-                    className="text-xl md:text-2xl font-mono mt-8 text-white"
+                    className="text-xl md:text-2xl font-mono mt-4 md:mt-8 text-white"
                 >
                     {hero.subtitle}
                 </motion.p>

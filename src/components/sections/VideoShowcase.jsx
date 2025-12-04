@@ -36,7 +36,6 @@ const VideoShowcase = () => {
             {/* Header */}
             <div className="w-full flex justify-between items-end mb-20 border-b border-white/20 pb-4">
                 <h2 className="text-6xl md:text-8xl font-bold tracking-tighter">VIDEOS</h2>
-                <span className="text-sm md:text-base font-light tracking-widest opacity-60">LATEST PRODUCTIONS</span>
             </div>
 
             {/* Video Grid */}

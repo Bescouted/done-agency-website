@@ -9,8 +9,6 @@ export default function Services() {
     return (
         <section className="min-h-screen w-full py-20 px-4 md:px-10 relative z-10 bg-void-black text-white">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-sm font-mono text-gray-500 mb-20">OUR CAPABILITIES</h2>
-
                 <div className="border-t border-white/20">
                     {services.map((service) => (
                         <div
