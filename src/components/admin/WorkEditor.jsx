@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useContentStore } from '../../store/contentStore'
+import { API_URL } from '../../config'
 
 export default function WorkEditor() {
     const { projects, addProject, removeProject, updateProject, updateProjectImage, removeProjectImage } = useContentStore()
@@ -37,7 +38,7 @@ export default function WorkEditor() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch('/api/projects', {
+            const response = await fetch(`${API_URL}/api/projects`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

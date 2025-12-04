@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useContentStore } from '../../store/contentStore'
+import { API_URL } from '../../config'
 
 export default function FooterEditor() {
     const { footer, setFooter } = useContentStore()
@@ -20,7 +21,7 @@ export default function FooterEditor() {
         setFooter(localFooter)
 
         try {
-            const response = await fetch('/api/footer', {
+            const response = await fetch(`${API_URL}/api/footer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

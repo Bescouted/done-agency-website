@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useContentStore } from '../../store/contentStore'
+import { API_URL } from '../../config'
 
 export default function ServicesEditor() {
     const { services, addService, removeService, updateService } = useContentStore()
@@ -15,7 +16,7 @@ export default function ServicesEditor() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch('/api/services', {
+            const response = await fetch(`${API_URL}/api/services`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

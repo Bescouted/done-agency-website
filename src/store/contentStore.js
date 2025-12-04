@@ -46,11 +46,12 @@ export const useContentStore = create((set) => ({
     // Initialization
     fetchData: async () => {
         try {
+            const { API_URL } = await import('../config');
             const [projectsRes, servicesRes, footerRes, videosRes] = await Promise.all([
-                fetch('/api/projects'),
-                fetch('/api/services'),
-                fetch('/api/footer'),
-                fetch('/api/videos')
+                fetch(`${API_URL}/api/projects`),
+                fetch(`${API_URL}/api/services`),
+                fetch(`${API_URL}/api/footer`),
+                fetch(`${API_URL}/api/videos`)
             ]);
 
             if (projectsRes.ok) {
